@@ -1,12 +1,14 @@
+import webLogo from '../assets/WebLogo.png'
+
 function HomeView()
 {
         return (
-                <div className="relative bg-cover bg-center bg-black"> 
-                        <img 
-                        src="https://images.pexels.com/photos/1732414/pexels-photo-1732414.jpeg"
-                        className="relative bg-cover opacity-50" 
-                        />
-                </div>
+                <>
+                        <img alt="Nothing" src={webLogo} width={190} className="absolute z-1 top-30 left-130"/>
+                        <p className="absolute z-1 top-110 left-85 text-[#eda274] font-bold">
+                        Descubre los mejores quinchos para tus reuniones, asados y eventos especiales.
+                        </p>
+                </>
         )
 }
 
