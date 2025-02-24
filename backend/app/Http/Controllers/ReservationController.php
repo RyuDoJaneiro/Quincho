@@ -7,9 +7,15 @@ use App\Models\Reservation;
 
 class ReservationController extends Controller
 {
-    public function getOne(Request $request, $date)
+
+    public function index()
     {
-        $reservation = Reservation::findWhere('reservationDate', $date);
+        return response()->json(Reservation::all(), 200);
+    }
+
+    public function getOne(Request $request)
+    {
+        $reservation = Reservation::findWhere('reservationDate', $request->reservationDate);
 
         if ($date == -1)
         return;
@@ -22,5 +28,18 @@ class ReservationController extends Controller
         {
             return response()->json(['reservationFound' => true], 200);
         }
+    }
+
+    public function create(Request $request)
+    {
+        $validated = $request->validate
+        ([
+            'reservationDate' => 'required|date',
+            'isOccupied' => 'required|boolean'
+        ]);
+
+        $reservation = Reservation::create($validated);
+
+        return response()->json($reservation, 201);
     }
 }
