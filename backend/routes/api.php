@@ -9,3 +9,5 @@ Route::get('/reservation', [ReservationController::class, 'index']);
 Route::get('/reservation/getOne', [ReservationController::class, 'getOne']);
 
 Route::post('/reservation', [ReservationController::class, 'create']);
+
+Route::put('/reservation/{id}', [ReservationController::class, 'update']);

@@ -15,10 +15,7 @@ class ReservationController extends Controller
 
     public function getOne(Request $request)
     {
-        $reservation = Reservation::findWhere('reservationDate', $request->reservationDate);
-
-        if ($date == -1)
-        return;
+        $reservation = Reservation::firstWhere('reservationDate', $request->reservationDate);
 
         if (!$reservation)
         {
@@ -41,5 +38,25 @@ class ReservationController extends Controller
         $reservation = Reservation::create($validated);
 
         return response()->json($reservation, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $reservation = Reservation::find($id);
+
+        if (!$reservation)
+        {
+            return response()->json(['reservationFound' => false], 404);
+        }
+
+        $validated = $request->validate
+        ([
+            'reservationDate' => 'required|date',
+            'isOccupied' => 'required|boolean'
+        ]);
+
+        $reservation->update($validated);
+
+        return response()->json($reservation, 200);
     }
 }

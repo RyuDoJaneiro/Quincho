@@ -11,7 +11,7 @@ const api = axios.create
     },
 });
 
-const getAllData = async() =>
+export const getAllData = async () =>
 {
         try
         {
@@ -25,4 +25,61 @@ const getAllData = async() =>
         }
 }
 
-export default getAllData;
+export const getOne = async (dateValue) =>
+{
+        try
+        {
+                const response = await api.get('/reservation/getOne',
+                {
+                        params:
+                        {
+                                reservationDate: dateValue
+                        }                        
+                });                        
+                return response.data;
+        }
+        catch (error)
+        {
+                console.error("Error while getting data", error);
+                return null;
+        }
+}
+
+export const createData = async (dateValue) =>
+{
+        try
+        {
+                const response = await api.post('/reservation',
+                {
+                        reservationDate: dateValue,
+                        isOccupied: true                      
+                });                        
+                return response.data;
+        }
+        catch (error)
+        {
+                console.error("Error while getting data", error);
+                return null;
+        }
+}
+
+export const updateData = async (dateValue, isOccupied, id) =>
+{
+        try
+        {
+                const response = await api.put(`/reservation/${id}`,
+                {
+                        params:
+                        {
+                                reservationDate: dateValue,
+                                isOccupied: isOccupied
+                        }                        
+                });                        
+                return response.data;
+        }
+        catch (error)
+        {
+                console.error("Error while getting data", error);
+                return null;
+        }
+}
